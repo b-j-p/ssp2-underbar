@@ -67,8 +67,7 @@
     // TIP: Here's an example of a function that needs to iterate, which we've
     // implemented for you. Instead of using a standard `for` loop, though,
     // it uses the iteration helper `each`, which you will need to write.
-    var result = -1;
-
+    var result = -1
     _.each(array, function(item, index) {
       if (item === target && result === -1) {
         result = index;
@@ -100,15 +99,28 @@
 
 
   // Produce a duplicate-free version of the array.
+
   _.uniq = function(array) {
+    var obj = {};
+    var res = [];
+    _.each(array, function(item, index) {
+      obj[array[index]] = index;
+    })
+    for (var key in obj) {
+      res.push(Number(key));
+    }
+    return res;
   };
 
 
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
-    // map() is a useful primitive iteration function that works a lot
-    // like each(), but in addition to running the operation on all
-    // the members, it also maintains an array of results.
+    var res = [];
+    for (var i = 0; i < collection.length; i++) {
+      var element = iterator(collection[i], i);
+      res.push(element);
+    }
+    return res;
   };
 
   /*
@@ -150,7 +162,21 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    if (accumulator !== null) {
+      var total = accumulator;
+      for (var i = 0; i < collection.length; i++) {
+        total = total + iterator(collection[i]);
+      }
+      return total;
+    } else {
+      var total = collection[0];
+      for (var i = 1; i < collection.length; i++) {
+        total = total + iterator(collection[i]);
+      }
+      return total;
+    }
   };
+
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
