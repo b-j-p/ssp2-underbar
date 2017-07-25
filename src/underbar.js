@@ -6,7 +6,7 @@
   // Returns whatever value is passed as the argument. This function doesn't
   // seem very useful, but remember it--if a function needs to provide an
   // iterator when the user does not pass one in, this will be handy.
-  _.identity = function(val) {
+  _.identity = function(val) {~/
     return val;
   };
 
@@ -116,12 +116,14 @@
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     var res = [];
-    for (var i = 0; i < collection.length; i++) {
-      var element = iterator(collection[i], i);
-      res.push(element);
-    }
+    _.each(collection, function(element) {
+       res.push(iterator(element));
+    });
     return res;
   };
+
+
+
 
   /*
    * TIP: map is really handy when you want to transform an array of
