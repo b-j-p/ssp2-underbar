@@ -276,7 +276,15 @@
 
 
   _.extend = function(obj) {
+    _.each(arguments, function(argument) {
+      for (var key in argument) {
+        obj[key] = argument[key];
+      }
+    });
+    return obj;
   };
+
+
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
